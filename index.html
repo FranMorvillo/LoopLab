@@ -13,8 +13,8 @@
   <title>Bootstrap Theme</title>
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" id="main-nav">
+<body data-spy="scroll" data-target="#main-nav" id="home">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" id="main-nav" id="main-nav">
     <div class="container">
       <a href="index.html" class="navbar-brand">LoopLAB</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -310,6 +310,28 @@
   <script>
     // Get the current year for the copyright
     $("#year").text(new Date().getFullYear());
+
+    //Init Scrollspy
+    $('body').scrollspy({ target: '#main-nav' });
+
+    // Smooth scrolling
+    $("#main-nav a").on('click', function (e) {
+      // Check for a hash value
+      if (this.hash !== "") {
+        //Prevent default behaviour
+        event.preventDefault();
+        // Store hash
+        const hash = this.hash;
+
+        //Animate smooth scroll
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top
+        }, 800, function () {
+          // Add hash to URL after scroll
+          window.location.hash = hash;
+        });
+      }
+    });
   </script>
 </body>
 
